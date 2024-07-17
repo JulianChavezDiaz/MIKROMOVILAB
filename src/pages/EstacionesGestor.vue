@@ -1,4 +1,5 @@
 <template>
+  <h1>Holis</h1>
   <div class="p-4">
     <div class="flex justify-between items-center mb-4">
       <h1 class="text-2xl font-bold">Gestor Estaciones</h1>
