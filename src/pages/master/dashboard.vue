@@ -157,7 +157,7 @@
             </router-link>
           </div>
           <div class="py-[10px] ">
-            <router-link to="/setting"
+            <router-link to="/login"
               class="inline-flex relative items-center py-[10px] px-[20px] w-full text-sm font-medium hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-600 hover:text-white">
               <!-- Icono aquí -->
               Login/Registro

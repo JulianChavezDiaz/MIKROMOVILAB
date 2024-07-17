@@ -9,11 +9,24 @@ import estadisticas from "@/pages/estadisticas.vue";
 import viajes from "@/pages/ViajesUs.vue";
 import CrudPlantilla from "@/pages/CrudPlantilla.vue";
 import EstacionesGestor from "@/pages/EstacionesGestor.vue";
+import LoginComponent from "@/pages/LoginComponent.vue";
+import RegistroComponent from "@/pages/RegistroComponent.vue";
 const routes = [
+  
   {
     name: 'Dashboard',
     path: '/',
     component: dashboard
+  },
+  {
+    name: 'LoginComponent',
+    path: '/login',
+    component: LoginComponent
+  },
+  {
+    name: 'RegistroComponent',
+    path: '/Registro',
+    component: RegistroComponent
   },
   {
     name: 'Home',
