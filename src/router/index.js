@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import dashboard from '@/pages/master/dashboard.vue';
 import home from '@/pages/home.vue';
-import usuarios from "@/pages/PlantillaUsuariosGestor.vue";
+import UsuariosComponent from "@/pages/UsuariosComponent.vue";
 import bicicletas from "@/pages/bicicletas.vue";
 import mantenimiento from "@/pages/mantenimiento.vue";
 import alquiler from "@/pages/alquiler.vue";
@@ -23,7 +23,7 @@ const routes = [
   {
     name: 'Usuarios',
     path: '/usuarios',
-    component: usuarios
+    component: UsuariosComponent
   },
  
   {
@@ -43,11 +43,6 @@ const routes = [
   },
   {
     name: 'Estadisticas',
-    path: '/estadisticas',
-    component: estadisticas
-  },
-  {
-    name: 'V',
     path: '/estadisticas',
     component: estadisticas
   },
