@@ -149,6 +149,12 @@
               plantiila crud
             </router-link>
 
+           <!-- aqui esta la ruta para el crud alquiler
+             <router-link to="/CrudAlquiler"
+              class="inline-flex relative items-center py-[10px] px-[20px] w-full text-sm font-medium hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-600 hover:text-white">
+              Alquiler crud
+            </router-link> -->
+
             <router-link to="/usuarios"
               class="inline-flex relative items-center py-[10px] px-[20px] w-full text-sm font-medium hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-600 hover:text-white">
               <!-- Icono aquí -->

@@ -11,6 +11,7 @@ import CrudPlantilla from "@/pages/CrudPlantilla.vue";
 import EstacionesGestor from "@/pages/EstacionesGestor.vue";
 import LoginComponent from "@/pages/LoginComponent.vue";
 import RegistroComponent from "@/pages/RegistroComponent.vue";
+/*import CrudAlquiler from "@/pages/CrudAlquiler.vue";*/
 const routes = [
   
   {
@@ -74,6 +75,11 @@ const routes = [
     path: '/CrudPlantilla',
     component: CrudPlantilla
   },
+  /*{
+    name: 'CrudAlquiler ',
+    path: '/CrudAlquiler',
+    component: CrudAlquiler
+  },*/
   {
     
       name: 'Estaciones',
