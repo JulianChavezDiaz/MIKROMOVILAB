@@ -137,10 +137,10 @@ export default {
       const nuevoUsuario = {
         id: this.nuevoUsuarioId,
         nombres: 'Nuevo Usuario',
-        apellidos: '',
-        email: '',
-        contraseña: '',
-        direccion: '',
+        apellidos: 'Apellido',
+        email: 'nuevo@correo.com',
+        contraseña: 'contraseña',
+        direccion: 'Dirección',
         rol: 'User',
         estado: 'Inactivo'
       };

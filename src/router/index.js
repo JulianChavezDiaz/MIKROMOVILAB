@@ -1,14 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router";
 import dashboard from '@/pages/master/dashboard.vue';
 import home from '@/pages/home.vue';
-import UsuariosComponent from "@/pages/UsuariosComponent.vue";
-import bicicletas from "@/pages/bicicletas.vue";
-import mantenimiento from "@/pages/mantenimiento.vue";
-import alquiler from "@/pages/alquiler.vue";
+import alquiler from "@/pages/AlquilerGestor.vue";
 import estadisticas from "@/pages/estadisticas.vue";
 import viajes from "@/pages/ViajesUs.vue";
 import CrudPlantilla from "@/pages/CrudPlantilla.vue";
 import EstacionesGestor from "@/pages/EstacionesGestor.vue";
+import MantenimientoGestor from "@/pages/MantenimientoGestor.vue";
+import UsuariosGestor from "@/pages/UsuariosGestor.vue";
+import BicicletasGestor from "@/pages/BicicletasGestor.vue";
 const routes = [
   {
     name: 'Dashboard',
@@ -23,18 +23,18 @@ const routes = [
   {
     name: 'Usuarios',
     path: '/usuarios',
-    component: UsuariosComponent
+    component: UsuariosGestor
   },
  
   {
     name: 'Bicicletas',
     path: '/bicicletas',
-    component: bicicletas
+    component: BicicletasGestor
   },
   {
     name: 'Mantenimiento',
     path: '/mantenimiento',
-    component: mantenimiento
+    component: MantenimientoGestor
   },
   {
     name: 'Alquiler',
@@ -63,8 +63,6 @@ const routes = [
       component: EstacionesGestor
     
   },
-
-
 ];
 
 const router = createRouter({
