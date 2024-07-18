@@ -1,6 +1,6 @@
 <template>
   <div class="flex h-screen">
-    <!-- Barra lateral -->
+    
     <div class="w-[250px] h-full text-gray-400">
       <div class="h-[50px] bg-white flex justify-start items-center">
         <div class="px-[20px]">
@@ -13,7 +13,7 @@
           <div class="flex flex-col justify-between">
             <div
               class="  px-[20px] w-full text-sm h-[100px] bg-gray-900 flex justify-start items-center text-white hover:bg-transparent">
-              <!-- Avatar aquí -->
+             
               <div class="avatar mt-3 flex flex-col justify-between">
                 <div class="w-10 h-10 rounded-full overflow-hidden">
                   <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
@@ -24,7 +24,7 @@
               </div>
             </div>
             <div class="inline-flex relative items-center py-[10px] px-[20px] w-full text-sm font-medium">
-              <!-- Icono aquí -->
+             
               Navigation
             </div>
 
@@ -145,28 +145,24 @@
             </div>
             <router-link to="/CrudPlantilla"
               class="inline-flex relative items-center py-[10px] px-[20px] w-full text-sm font-medium hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-600 hover:text-white">
-              <!-- Icono aquí -->
+              
               plantiila crud
             </router-link>
-
-            <router-link to="/usuarios"
-              class="inline-flex relative items-center py-[10px] px-[20px] w-full text-sm font-medium hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-600 hover:text-white">
-              <!-- Icono aquí -->
-              Plantilla Gestor
-
-            </router-link>
+            
           </div>
           <div class="py-[10px] ">
-            <router-link to="/setting"
+            <router-link to="/login"
               class="inline-flex relative items-center py-[10px] px-[20px] w-full text-sm font-medium hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-600 hover:text-white">
-              <!-- Icono aquí -->
-              Login/Registro
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <path fill-rule="evenodd" d="M7.5 3.75A1.5 1.5 0 0 0 6 5.25v13.5a1.5 1.5 0 0 0 1.5 1.5h6a1.5 1.5 0 0 0 1.5-1.5V15a.75.75 0 0 1 1.5 0v3.75a3 3 0 0 1-3 3h-6a3 3 0 0 1-3-3V5.25a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3V9A.75.75 0 0 1 15 9V5.25a1.5 1.5 0 0 0-1.5-1.5h-6Zm10.72 4.72a.75.75 0 0 1 1.06 0l3 3a.75.75 0 0 1 0 1.06l-3 3a.75.75 0 1 1-1.06-1.06l1.72-1.72H9a.75.75 0 0 1 0-1.5h10.94l-1.72-1.72a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+              </svg>
+              Cerrar Sesión
             </router-link>
           </div>
         </div>
       </div>
     </div>
-    <!-- Contenido principal -->
+
     <div class="w-full h-full">
       <div class="h-[50px] bg-white text-black flex justify-end items-center px-4">
         <div class="form-control mr-4 flex items-center relative">
@@ -186,17 +182,19 @@
           <span class="text-sm font-medium ml-2 mr-4">Abigail Cepeda</span>
         </div>
       </div>
-      <div class="h-[calc(100vh-50px)] bg-gray-300 overflow-auto">
-        menu
+      <div id="ViajesComponent" class="h-[calc(100vh-50px)] bg-gray-300 overflow-auto">
+        <ViajesComponent/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import ViajesComponent from '../ViajesComponent.vue';
+
 export default {
   name: 'App',
-  components: {
+  components: { ViajesComponent
   }
 }
 </script>

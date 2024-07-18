@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import dashboard from '@/pages/master/dashboard.vue';
-import home from '@/pages/home.vue';
+import ViajesComponent from '@/pages/ViajesComponent.vue';
 import alquiler from "@/pages/AlquilerGestor.vue";
 import estadisticas from "@/pages/estadisticas.vue";
 import viajes from "@/pages/ViajesUs.vue";
@@ -9,6 +9,8 @@ import EstacionesGestor from "@/pages/EstacionesGestor.vue";
 import MantenimientoGestor from "@/pages/MantenimientoGestor.vue";
 import UsuariosGestor from "@/pages/UsuariosGestor.vue";
 import BicicletasGestor from "@/pages/BicicletasGestor.vue";
+import LoginComponent from "@/pages/LoginComponent.vue";
+import RegistroComponent from "@/pages/RegistroComponent.vue";
 const routes = [
   {
     name: 'Dashboard',
@@ -18,7 +20,7 @@ const routes = [
   {
     name: 'Home',
     path: '/home',
-    component: home
+    component: ViajesComponent
   },
   {
     name: 'Usuarios',
@@ -61,6 +63,20 @@ const routes = [
       name: 'Estaciones',
       path: '/estaciones',
       component: EstacionesGestor
+    
+  },
+  {
+    
+      name: 'Login',
+      path: '/Login',
+      component: LoginComponent
+    
+  },
+  {
+    
+      name: 'Registro',
+      path: '/Registro',
+      component: RegistroComponent
     
   },
 ];

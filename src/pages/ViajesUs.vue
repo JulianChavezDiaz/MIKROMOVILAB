@@ -1,68 +1,99 @@
 <template>
-  <div class="min-h-screen bg-gray-200 p-4">
-    <div class="max-w-7xl mx-auto bg-white shadow-md rounded-lg">
-      <header class="bg-gray-800 text-white p-4 rounded-t-lg flex justify-between items-center">
-        <h1 class="text-xl font-bold">Viajes Actuales</h1>
-        <input type="text" placeholder="Buscar..." class="border rounded-lg p-2" />
-      </header>
-      <div class="p-4 flex">
-        <div class="flex-1">
-          <div class="overflow-x-auto">
-            <table class="min-w-full bg-white">
-              <thead>
-                <tr>
-                  <th class="px-4 py-2 border">#</th>
-                  <th class="px-4 py-2 border">Usuarios</th>
-                  <th class="px-4 py-2 border">Estación Inicio</th>
-                  <th class="px-4 py-2 border">Estado</th>
-                  <th class="px-4 py-2 border">Id Bicicleta</th>
-                  <th class="px-4 py-2 border">Hora Inicio</th>
-                  <th class="px-4 py-2 border">Hora Fin</th>
-                  <th class="px-4 py-2 border">Tiempo Total</th>
-                  <th class="px-4 py-2 border">Estación Fin</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(trip, index) in paginatedTrips" :key="trip.id">
-                  <td class="px-4 py-2 border">{{ index + 1 }}</td>
-                  <td class="px-4 py-2 border">
-                    <div class="flex items-center">
-                      <img :src="trip.userImage" alt="User Image" class="w-8 h-8 rounded-full mr-2">
-                      <span>{{ trip.userName }}</span>
-                    </div>
-                  </td>
-                  <td class="px-4 py-2 border">{{ trip.startStation }}</td>
-                  <td class="px-4 py-2 border">{{ trip.status }}</td>
-                  <td class="px-4 py-2 border">{{ trip.bikeId }}</td>
-                  <td class="px-4 py-2 border">{{ trip.startTime }}</td>
-                  <td class="px-4 py-2 border">{{ trip.endTime }}</td>
-                  <td class="px-4 py-2 border">{{ trip.totalTime }}</td>
-                  <td class="px-4 py-2 border">{{ trip.endStation }}</td>
-                </tr>
-              </tbody>
-            </table>
+  <div class="p-4">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-2xl font-bold">Gestor Viajes</h1>
+      <button @click="nuevoViaje" class="bg-green-500 text-white px-4 py-2 rounded">Nuevo viaje +</button>
+    </div>
+    <div class="flex justify-between items-center mb-4">
+      <input
+        v-model="terminoBusqueda"
+        @input="buscarViajes"
+        type="text"
+        placeholder="Buscar..."
+        class="border rounded px-4 py-2"
+      />
+    </div>
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white border border-gray-200">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="py-2 px-4 border-b">Nro</th>
+            <th class="py-2 px-4 border-b">ID Viaje</th>
+            <th class="py-2 px-4 border-b">Usuario</th>
+            <th class="py-2 px-4 border-b">Estación Inicio</th>
+            <th class="py-2 px-4 border-b">Estado</th>
+            <th class="py-2 px-4 border-b">Id Bicicleta</th>
+            <th class="py-2 px-4 border-b">Hora inicio</th>
+            <th class="py-2 px-4 border-b">Hora Fin</th>
+            <th class="py-2 px-4 border-b">Tiempo Total</th>
+            <th class="py-2 px-4 border-b">Estación Fin</th>
+            <th class="py-2 px-4 border-b">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(viaje, index) in viajesFiltrados" :key="viaje.id">
+            <td class="py-2 px-4 border-b">{{ index + 1 }}</td>
+            <td class="py-2 px-4 border-b">{{ viaje.id }}</td>
+            <td class="py-2 px-4 border-b">{{ obtenerNombreUsuario(viaje.idUsuario) }}</td>
+            <td class="py-2 px-4 border-b">{{ viaje.estacionInicio }}</td>
+            <td class="py-2 px-4 border-b">{{ viaje.estado }}</td>
+            <td class="py-2 px-4 border-b">{{ viaje.idBicicleta }}</td>
+            <td class="py-2 px-4 border-b">{{ viaje.horaInicio }}</td>
+            <td class="py-2 px-4 border-b">{{ viaje.horaFin }}</td>
+            <td class="py-2 px-4 border-b">{{ viaje.tiempoTotal }}</td>
+            <td class="py-2 px-4 border-b">{{ viaje.estacionFin }}</td>
+            <td class="py-2 px-4 border-b">
+              <button @click="abrirModalEditar(viaje, index)" class="bg-yellow-500 text-white px-2 py-1 rounded mr-2">✏️</button>
+              <button @click="eliminarViaje(index)" class="bg-red-500 text-white px-2 py-1 rounded">🗑️</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div v-if="showModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div class="bg-white p-4 rounded shadow-lg w-full max-w-md">
+        <h2 class="text-xl mb-4">{{ viajeIndex === null ? 'Nuevo Viaje' : 'Editar Viaje' }}</h2>
+        <form @submit.prevent="editarViaje">
+          <div class="mb-2">
+            <label for="idUsuario" class="block">Usuario</label>
+            <input v-model="viajeActual.idUsuario" id="idUsuario" type="number" class="border rounded w-full py-1 px-2">
           </div>
-          <div class="flex justify-end mt-4">
-            <button @click="goToPage(currentPage - 1)" :disabled="currentPage === 1"
-              class="px-3 py-1 border rounded-l-lg">«</button>
-            <button v-for="page in totalPages" :key="page" @click="goToPage(page)"
-              :class="['px-3 py-1 border', { 'bg-blue-500 text-white': page === currentPage }]" class="cursor-pointer">
-              {{ page }}
-            </button>
-            <button @click="goToPage(currentPage + 1)" :disabled="currentPage === totalPages"
-              class="px-3 py-1 border rounded-r-lg">»</button>
+          <div class="mb-2">
+            <label for="estacionInicio" class="block">Estación Inicio</label>
+            <input v-model="viajeActual.estacionInicio" id="estacionInicio" type="text" class="border rounded w-full py-1 px-2">
           </div>
-        </div>
-        <div class="ml-4 w-64">
-          <div v-for="stat in statistics" :key="stat.title" :class="['p-4 rounded-lg mb-4 text-white', stat.color]">
-            <div class="flex justify-between items-center">
-              <h2 class="text-xl font-bold">{{ stat.title }}</h2>
-              <span>{{ stat.percentage }}%</span>
-            </div>
-            <p class="mt-2">{{ stat.value }}</p>
-            <button class="mt-4 bg-white text-black px-4 py-2 rounded-lg">View Detail</button>
+          <div class="mb-2">
+            <label for="estado" class="block">Estado</label>
+            <select v-model="viajeActual.estado" id="estado" class="border rounded w-full py-1 px-2">
+              <option>Activo</option>
+              <option>Inactivo</option>
+            </select>
           </div>
-        </div>
+          <div class="mb-2">
+            <label for="idBicicleta" class="block">ID Bicicleta</label>
+            <input v-model="viajeActual.idBicicleta" id="idBicicleta" type="number" class="border rounded w-full py-1 px-2">
+          </div>
+          <div class="mb-2">
+            <label for="horaInicio" class="block">Hora Inicio</label>
+            <input v-model="viajeActual.horaInicio" id="horaInicio" type="datetime-local" class="border rounded w-full py-1 px-2">
+          </div>
+          <div class="mb-2">
+            <label for="horaFin" class="block">Hora Fin</label>
+            <input v-model="viajeActual.horaFin" id="horaFin" type="datetime-local" class="border rounded w-full py-1 px-2">
+          </div>
+          <div class="mb-2">
+            <label for="tiempoTotal" class="block">Tiempo Total</label>
+            <input v-model="viajeActual.tiempoTotal" id="tiempoTotal" type="text" class="border rounded w-full py-1 px-2">
+          </div>
+          <div class="mb-2">
+            <label for="estacionFin" class="block">Estación Fin</label>
+            <input v-model="viajeActual.estacionFin" id="estacionFin" type="text" class="border rounded w-full py-1 px-2">
+          </div>
+          <div class="flex justify-end">
+            <button @click="cerrarModal" type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Cancelar</button>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Guardar</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -72,39 +103,87 @@
 export default {
   data() {
     return {
-      trips: [
-        { id: 1, userImage: 'path/to/image1.jpg', userName: 'Pedro Perez', startStation: 'Iñaquito', status: 'Terminado', bikeId: 401, startTime: '12:30', endTime: '12:30', totalTime: '00:30:20', endStation: 'Carolina' },
-        { id: 2, userImage: 'path/to/image2.jpg', userName: 'Pedro Perez', startStation: 'Carolina', status: 'En Curso', bikeId: 531, startTime: '12:30', endTime: '12:30', totalTime: '00:30:20', endStation: '' },
-        // Agrega más datos de prueba aquí
+      viajes: [
+        { id: 1, idUsuario: 1, estacionInicio: 'Carolina', estado: 'Norte', idBicicleta: 20, horaInicio: '2023-01-01T10:00', horaFin: '2023-01-01T11:00', tiempoTotal: '1h', estacionFin: 'Sur' },
+        { id: 2, idUsuario: 2, estacionInicio: 'Parque', estado: 'Centro', idBicicleta: 21, horaInicio: '2023-01-01T12:00', horaFin: '2023-01-01T13:00', tiempoTotal: '1h', estacionFin: 'Oeste' },
       ],
-      currentPage: 1,
-      tripsPerPage: 5,
-      statistics: [
-        { title: 'VIAJES TOTALES', value: 10, percentage: 100, color: 'bg-blue-500' },
-        { title: 'VIAJES EN CURSO', value: 6, percentage: 60, color: 'bg-orange-500' },
-        { title: 'VIAJES EN RIESGO', value: 1, percentage: 10, color: 'bg-red-500' },
-        { title: 'VIAJES TERMINADOS', value: 3, percentage: 30, color: 'bg-teal-500' }
-      ]
-    };
+      usuarios: [
+        { id: 1, nombre: 'Juan Pérez' },
+        { id: 2, nombre: 'Ana López' }
+      ],
+      showModal: false,
+      viajeActual: {
+        idUsuario: null,
+        estacionInicio: '',
+        estado: '',
+        idBicicleta: null,
+        horaInicio: '',
+        horaFin: '',
+        tiempoTotal: '',
+        estacionFin: ''
+      },
+      viajeIndex: null,
+      terminoBusqueda: '',
+      nuevaViajeId: 3
+    }
   },
   computed: {
-    totalPages() {
-      return Math.ceil(this.trips.length / this.tripsPerPage);
-    },
-    paginatedTrips() {
-      const start = (this.currentPage - 1) * this.tripsPerPage;
-      const end = start + this.tripsPerPage;
-      return this.trips.slice(start, end);
+    viajesFiltrados() {
+      if (!this.terminoBusqueda) return this.viajes;
+      return this.viajes.filter(viaje => {
+        const usuario = this.obtenerNombreUsuario(viaje.idUsuario).toLowerCase();
+        return usuario.includes(this.terminoBusqueda.toLowerCase());
+      });
     }
   },
   methods: {
-    goToPage(page) {
-      if (page >= 1 && page <= this.totalPages) {
-        this.currentPage = page;
+    obtenerNombreUsuario(idUsuario) {
+      const usuario = this.usuarios.find(user => user.id === idUsuario);
+      return usuario ? usuario.nombre : 'Desconocido';
+    },
+    buscarViajes() {
+      this.viajesFiltrados();
+    },
+    nuevoViaje() {
+      this.viajeActual = {
+        idUsuario: null,
+        estacionInicio: '',
+        estado: '',
+        idBicicleta: null,
+        horaInicio: '',
+        horaFin: '',
+        tiempoTotal: '',
+        estacionFin: ''
+      };
+      this.showModal = true;
+      this.viajeIndex = null;
+    },
+    abrirModalEditar(viaje, index) {
+      this.viajeActual = { ...viaje };
+      this.showModal = true;
+      this.viajeIndex = index;
+    },
+    cerrarModal() {
+      this.showModal = false;
+    },
+    editarViaje() {
+      if (this.viajeIndex !== null) {
+        this.viajes.splice(this.viajeIndex, 1, { ...this.viajeActual });
+      } else {
+        this.viajes.push({ ...this.viajeActual, id: this.nuevaViajeId++ });
       }
+      this.cerrarModal();
+    },
+    eliminarViaje(index) {
+      this.viajes.splice(index, 1);
     }
   }
-};
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+.table-fixed {
+  table-layout: fixed;
+  width: 100%;
+}
+</style>
