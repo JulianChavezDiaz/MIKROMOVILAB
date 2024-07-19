@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import dashboard from '@/pages/master/dashboard.vue';
 import home from '@/pages/HomeGestor.vue';
 import usuarios from "@/pages/UsuariosGestor.vue";
+import roles from "@/pages/RolGestor.vue";
 import bicicletas from "@/pages/BicicletasGestor.vue";
 import mantenimiento from "@/pages/MantenimientoGestor.vue";
 import alquiler from "@/pages/AlquilerGestor.vue";
@@ -24,6 +25,11 @@ const routes = [
     name: 'Usuarios',
     path: '/usuarios',
     component: usuarios
+  },
+  {
+    name: 'roles',
+    path: '/roles',
+    component: roles
   },
 
  
