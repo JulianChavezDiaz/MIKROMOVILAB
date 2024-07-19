@@ -177,7 +177,6 @@ export default {
 </script>
 
 <style scoped>
-/* Asegúrate de agregar estilos para que sea responsive */
 @media (max-width: 768px) {
   table {
     display: block;

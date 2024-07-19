@@ -25,6 +25,7 @@ const routes = [
     path: '/usuarios',
     component: usuarios
   },
+
  
   {
     name: 'Bicicletas',

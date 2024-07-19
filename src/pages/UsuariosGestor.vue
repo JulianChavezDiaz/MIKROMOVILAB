@@ -77,7 +77,10 @@
           </div>
           <div class="mb-2">
             <label for="rol" class="block">Rol</label>
-            <input v-model="usuarioActual.rol" id="rol" type="text" class="border rounded w-full py-1 px-2">
+            <select v-model="usuarioActual.rol" id="estado" class="border rounded w-full py-1 px-2">
+              <option>Admin</option>
+              <option>Cliente</option>
+            </select>
           </div>
           <div class="mb-2">
             <label for="estado" class="block">Estado</label>
