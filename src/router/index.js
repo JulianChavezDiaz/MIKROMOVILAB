@@ -10,6 +10,8 @@ import estadisticas from "@/pages/estadisticas.vue";
 import viajes from "@/pages/ViajesGestor.vue";
 import CrudPlantilla from "@/pages/CrudPlantilla.vue";
 import EstacionesGestor from "@/pages/EstacionesGestor.vue";
+import PerfilUser from "@/pages/PerfilUser.vue"
+
 const routes = [
   {
     name: 'Dashboard',
@@ -25,6 +27,11 @@ const routes = [
     name: 'Usuarios',
     path: '/usuarios',
     component: usuarios
+  },
+  {
+    name: 'PerfilUser',
+    path: '/PerfilUser',
+    component: PerfilUser
   },
   {
     name: 'roles',

@@ -21,8 +21,10 @@
                 <div class="w-10 h-10 rounded-full overflow-hidden">
                   <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                 </div>
+              <router-link to="/PerfilUser">
                 <p>Abigail Cepeda</p>
                 <p class="text-sm text-gray-500">Admin</p>
+              </router-link>
 
               </div>
             </div>
