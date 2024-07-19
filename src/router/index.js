@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import dashboard from '@/pages/master/dashboard.vue';
 import ViajesComponent from '@/pages/ViajesComponent.vue';
 import alquiler from "@/pages/AlquilerGestor.vue";
-import estadisticas from "@/pages/estadisticas.vue";
+import Estadisticas from "@/pages/Estadisticas.vue";
 import viajes from "@/pages/ViajesUs.vue";
 import CrudPlantilla from "@/pages/CrudPlantilla.vue";
 import EstacionesGestor from "@/pages/EstacionesGestor.vue";
@@ -11,6 +11,7 @@ import UsuariosGestor from "@/pages/UsuariosGestor.vue";
 import BicicletasGestor from "@/pages/BicicletasGestor.vue";
 import LoginComponent from "@/pages/LoginComponent.vue";
 import RegistroComponent from "@/pages/RegistroComponent.vue";
+import MapaUbicacion from "@/pages/MapaUbicacion.vue";
 const routes = [
   {
     name: 'Dashboard',
@@ -46,7 +47,7 @@ const routes = [
   {
     name: 'Estadisticas',
     path: '/estadisticas',
-    component: estadisticas
+    component: Estadisticas
   },
   {
     name: 'Viajes',
@@ -77,6 +78,14 @@ const routes = [
       name: 'Registro',
       path: '/Registro',
       component: RegistroComponent
+    
+  },
+  
+  {
+    
+      name: 'ubicacion',
+      path: '/Ubicacion',
+      component: MapaUbicacion
     
   },
 ];

@@ -1,109 +1,159 @@
 <template>
-    <div class="min-h-screen bg-gray-200 p-4">
-      <div class="max-w-7xl mx-auto bg-white shadow-md rounded-lg">
-        <header class="bg-gray-800 text-white p-4 rounded-t-lg flex justify-between items-center">
-          <h1 class="text-xl font-bold">Viajes Actuales</h1>
-          <input type="text" placeholder="Buscar..." class="border rounded-lg p-2" />
-        </header>
-        <div class="p-4 flex">
-          <div class="flex-1">
-            <div class="overflow-x-auto">
-              <table class="min-w-full bg-white">
-                <thead>
-                  <tr>
-                    <th class="px-4 py-2 border">#</th>
-                    <th class="px-4 py-2 border">Usuarios</th>
-                    <th class="px-4 py-2 border">Estación Inicio</th>
-                    <th class="px-4 py-2 border">Estado</th>
-                    <th class="px-4 py-2 border">Id Bicicleta</th>
-                    <th class="px-4 py-2 border">Hora Inicio</th>
-                    <th class="px-4 py-2 border">Hora Fin</th>
-                    <th class="px-4 py-2 border">Tiempo Total</th>
-                    <th class="px-4 py-2 border">Estación Fin</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(trip, index) in paginatedTrips" :key="trip.id">
-                    <td class="px-4 py-2 border">{{ index + 1 }}</td>
-                    <td class="px-4 py-2 border">
-                      <div class="flex items-center">
-                        <img :src="trip.userImage" alt="User Image" class="w-8 h-8 rounded-full mr-2">
-                        <span>{{ trip.userName }}</span>
-                      </div>
-                    </td>
-                    <td class="px-4 py-2 border">{{ trip.startStation }}</td>
-                    <td class="px-4 py-2 border">{{ trip.status }}</td>
-                    <td class="px-4 py-2 border">{{ trip.bikeId }}</td>
-                    <td class="px-4 py-2 border">{{ trip.startTime }}</td>
-                    <td class="px-4 py-2 border">{{ trip.endTime }}</td>
-                    <td class="px-4 py-2 border">{{ trip.totalTime }}</td>
-                    <td class="px-4 py-2 border">{{ trip.endStation }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="flex justify-end mt-4">
-              <button @click="goToPage(currentPage - 1)" :disabled="currentPage === 1"
-                class="px-3 py-1 border rounded-l-lg">«</button>
-              <button v-for="page in totalPages" :key="page" @click="goToPage(page)"
-                :class="['px-3 py-1 border', { 'bg-blue-500 text-white': page === currentPage }]" class="cursor-pointer">
-                {{ page }}
-              </button>
-              <button @click="goToPage(currentPage + 1)" :disabled="currentPage === totalPages"
-                class="px-3 py-1 border rounded-r-lg">»</button>
-            </div>
-          </div>
-          <div class="ml-4 w-64">
-            <div v-for="stat in statistics" :key="stat.title" :class="['p-4 rounded-lg mb-4 text-white', stat.color]">
-              <div class="flex justify-between items-center">
-                <h2 class="text-xl font-bold">{{ stat.title }}</h2>
-                <span>{{ stat.percentage }}%</span>
+  <div class="flex h-screen">
+    <!-- Barra lateral -->
+    <div class="w-[250px] h-full text-gray-400">
+      <div class="h-[50px] bg-white flex justify-start items-center">
+        <div class="px-[20px]">
+          <span class="font-bold text-xl text-black">Mikro</span>
+          <span class="font-bold text-xl text-gray-500">mobiLAB</span>
+        </div>
+      </div>
+      <div class="h-[calc(100vh-50px)] bg-gray-800">
+        <div class="flex flex-col justify-between h-full space-y-[10px]">
+          <div class="flex flex-col justify-between">
+            <!-- Usuario -->
+            <div class="px-[20px] w-full text-sm h-[100px] bg-gray-900 flex justify-start items-center text-white hover:bg-transparent">
+              <div class="avatar mt-3 flex flex-col justify-between">
+                <div class="w-10 h-10 rounded-full overflow-hidden">
+                  <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                </div>
+                <p>Abigail Cepeda</p>
+                <p class="text-sm text-gray-500">Admin</p>
               </div>
-              <p class="mt-2">{{ stat.value }}</p>
-              <button class="mt-4 bg-white text-black px-4 py-2 rounded-lg">View Detail</button>
             </div>
+            <div class="inline-flex relative items-center py-[10px] px-[20px] w-full text-sm font-medium">
+              Navigation
+            </div>
+
+            <!-- Navegación -->
+            <router-link to="/home" class="inline-flex relative items-center py-[10px] px-[20px] w-full text-sm font-medium hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-600 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <!-- Icono de Home -->
+              </svg>
+              Home
+            </router-link>
+            <button @click="showComponent('usuarios')" class="inline-flex relative items-center py-[10px] px-[20px] w-full text-sm font-medium hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-600 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <!-- Icono de Usuarios -->
+              </svg>
+              Usuarios
+            </button>
+            <button @click="showComponent('estaciones')" class="inline-flex relative items-center py-[10px] px-[20px] w-full text-sm font-medium hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-600 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <!-- Icono de Estaciones -->
+              </svg>
+              Estaciones
+            </button>
+            <button @click="showComponent('bicicletas')" class="inline-flex relative items-center py-[10px] px-[20px] w-full text-sm font-medium hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-600 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <!-- Icono de Bicicletas -->
+              </svg>
+              Bicicletas
+            </button>
+            <button @click="showComponent('mantenimiento')" class="inline-flex relative items-center py-[10px] px-[20px] w-full text-sm font-medium hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-600 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <!-- Icono de Mantenimiento -->
+              </svg>
+              Mantenimiento
+            </button>
+            <button @click="showComponent('alquiler')" class="inline-flex relative items-center py-[10px] px-[20px] w-full text-sm font-medium hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-600 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <!-- Icono de Alquiler -->
+              </svg>
+              Alquiler
+            </button>
+            <button @click="showComponent('estadisticas')" class="inline-flex relative items-center py-[10px] px-[20px] w-full text-sm font-medium hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-600 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <!-- Icono de Estadisticas -->
+              </svg>
+              Estadisticas
+            </button>
+            <button @click="showComponent('viajes')" class="inline-flex relative items-center py-[10px] px-[20px] w-full text-sm font-medium hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-600 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <!-- Icono de Viajes -->
+              </svg>
+              Viajes
+            </button>
+            <button @click="showComponent('ubicacion')" class="inline-flex relative items-center py-[10px] px-[20px] w-full text-sm font-medium hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-600 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <!-- Icono de Ubicacion -->
+              </svg>
+              Ubicacion
+            </button>
+
+            <!-- Más enlaces aquí -->
+
+          </div>
+          <div class="py-[10px]">
+            <router-link to="/setting" class="inline-flex relative items-center py-[10px] px-[20px] w-full text-sm font-medium hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-600 hover:text-white">
+              <!-- Icono aquí -->
+              Login/Registro
+            </router-link>
           </div>
         </div>
       </div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        trips: [
-          { id: 1, userImage: 'path/to/image1.jpg', userName: 'Pedro Perez', startStation: 'Iñaquito', status: 'Terminado', bikeId: 401, startTime: '12:30', endTime: '12:30', totalTime: '00:30:20', endStation: 'Carolina' },
-          { id: 2, userImage: 'path/to/image2.jpg', userName: 'Pedro Perez', startStation: 'Carolina', status: 'En Curso', bikeId: 531, startTime: '12:30', endTime: '12:30', totalTime: '00:30:20', endStation: '' },
-        ],
-        currentPage: 1,
-        tripsPerPage: 5,
-        statistics: [
-          { title: 'VIAJES TOTALES', value: 10, percentage: 100, color: 'bg-blue-500' },
-          { title: 'VIAJES EN CURSO', value: 6, percentage: 60, color: 'bg-orange-500' },
-          { title: 'VIAJES EN RIESGO', value: 1, percentage: 10, color: 'bg-red-500' },
-          { title: 'VIAJES TERMINADOS', value: 3, percentage: 30, color: 'bg-teal-500' }
-        ]
-      };
-    },
-    computed: {
-      totalPages() {
-        return Math.ceil(this.trips.length / this.tripsPerPage);
-      },
-      paginatedTrips() {
-        const start = (this.currentPage - 1) * this.tripsPerPage;
-        const end = start + this.tripsPerPage;
-        return this.trips.slice(start, end);
-      }
-    },
-    methods: {
-      goToPage(page) {
-        if (page >= 1 && page <= this.totalPages) {
-          this.currentPage = page;
-        }
-      }
+    <!-- Contenido principal -->
+    <div class="w-full h-full">
+      <div class="h-[50px] bg-white text-black flex justify-end items-center px-4">
+        <div class="form-control mr-4 flex items-center relative">
+          <input type="text" placeholder="Buscar" class="input input-bordered w-24 md:w-auto rounded-md bg-white pr-10 border border-black" />
+          <button class="absolute right-2 text-white p-2 rounded">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" class="size-5">
+              <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+        <div class="flex items-center">
+          <div class="avatar w-8 h-8 rounded-full overflow-hidden">
+            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" alt="Avatar">
+          </div>
+          <span class="text-sm font-medium ml-2 mr-4">Abigail Cepeda</span>
+        </div>
+      </div>
+      <div id="Menu" class="h-[calc(100vh-50px)] w-full">
+        <component :is="currentComponent"></component>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import home from './home.vue';
+import UsuariosGestor from './UsuariosGestor.vue';
+import EstacionesGestor from './EstacionesGestor.vue';
+import BicicletasGestor from './BicicletasGestor.vue';
+import MantenimientoGestor from './MantenimientoGestor.vue';
+import Estadisticas from './Estadisticas.vue';
+import ViajesUs from './ViajesUs.vue';
+import MapaUbicacion from './MapaUbicacion.vue';
+import AlquilerGestor from './AlquilerGestor.vue';
+
+export default {
+  components: {
+    home,
+    UsuariosGestor,
+    EstacionesGestor,
+    BicicletasGestor,
+    MantenimientoGestor,
+    AlquilerGestor,
+    Estadisticas,
+    ViajesUs,
+    MapaUbicacion
+  },
+  data() {
+    return {
+      currentComponent: 'Home'
+    };
+  },
+  methods: {
+    showComponent(componentName) {
+      this.currentComponent = componentName;
     }
-  };
-  </script>
-  
-  <style scoped></style>
+  }
+};
+</script>
+
+<style scoped>
+/* Tus estilos aquí */
+</style>
