@@ -86,10 +86,15 @@
       </div>
     </div>
   </div>
+  <div><AboutView :bici="bicicletas"></AboutView></div>
 </template>
 
 <script>
+import AboutView from './AboutView.vue';
 export default {
+  components:{
+    AboutView
+  },
   data() {
     return {
       bicicletas: [
