@@ -1,16 +1,16 @@
 <template>
     <div class="w-full h-full">
-        <div class="h-[50px] bg-white text-black flex justify-between items-center px-4">
+        <div class="navbar h-[50px] bg-gray-800 flex justify-between items-center px-4">
             <!-- Texto MikroMovi-Lab -->
-            <div class="text-lg font-bold text-gray-900 ml-4">
-                MikroMovi-Lab
+            <div class="text-lg font-bold text-teal-50 ml-4">
+                MikromoviLab
             </div>
             
             <!-- Barra de búsqueda y avatar -->
             <div class="flex items-center space-x-4">
-                <div class="form-control flex items-center relative">
+                <div class="form-control flex items-center relative tetx-white ">
                     <input type="text" placeholder="Buscar"
-                        class="input input-bordered w-24 md:w-auto rounded-md bg-white pr-10 border border-black" />
+                        class="input input-bordered w-24 md:w-auto rounded-md bg-white pr-10 border border-black pl-2"  />
                     <button class="absolute right-2 text-white p-2 rounded">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" class="size-5">
                             <path fill-rule="evenodd"
@@ -19,15 +19,15 @@
                         </svg>
                     </button>
                 </div>
-                <div class="flex items-center">
-                    <div class="avatar w-8 h-8 rounded-full overflow-hidden">
-                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" alt="Avatar">
+                <div class=" avatar flex items-center text-teal-50">
+                    <div class=" w-8 h-8 rounded-full overflow-hidden">
+                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
                     </div>
                     <span class="text-sm font-medium ml-2 mr-4">Abigail Cepeda</span>
                 </div>
             </div>
         </div>
-        <div id="Menu" class="h-[calc(100vh-50px)] bg-gray-300 overflow-auto">
+        <div id="Menu" class="menu h-[calc(100vh-50px)] bg-gray-300 overflow-auto">
             <RouterView />
         </div>
     </div>

@@ -1,17 +1,16 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Auth from "@/components/AuthPage.vue";
 import Session from "@/components/SessionPage.vue";
-import UsuariosGestor from "@/pages/UsuariosGestor.vue";
-import BicicletasGestor from "@/pages/BicicletasGestor.vue";
-import EstacionesGestor from "@/pages/EstacionesGestor.vue";
-import LoginComponent from "@/pages/LoginComponent.vue";
-import AlquilerGestor from "@/pages/AlquilerGestor.vue";
-import MantenimientoGestor from "@/pages/MantenimientoGestor.vue";
-import ViajesGestor from "@/pages/ViajesGestor.vue";
-import EstadisticasView from "@/pages/EstadisticasView.vue";
-import UbicacionComponent from "@/pages/UbicacionComponent.vue";
-import RegistroComponent from "@/pages/RegistroComponent.vue";
-import HomeComponent from "@/pages/HomeComponent.vue";
+import UsuariosGestor from "@/pages/UsuarioPages.vue";
+import BicicletasGestor from "@/pages/BicicletasPages.vue";
+import EstacionesGestor from "@/pages/EstacionesPages.vue";
+import LoginComponent from "@/pages/LoginPages.vue";
+import AlquilerGestor from "@/pages/AlquilerPages.vue";
+import MantenimientoGestor from "@/pages/MantenimeintoPages.vue";
+import ViajesGestor from "@/pages/ViajesPages.vue";
+import UbicacionComponent from "@/pages/UbicacionPages.vue";
+import RegistroComponent from "@/pages/RegistroPages.vue";
+import HomeComponent from "@/pages/HomePages.vue";
 
 
 const routes = [
@@ -27,7 +26,6 @@ const routes = [
       { name: 'Mantenimientos', path: '/Mantenimientos', component: MantenimientoGestor },
       { name: 'Alquileres', path: '/Alquileres', component: AlquilerGestor },
       { name: 'Viajes', path: '/Viajes', component: ViajesGestor },
-      { name: 'Estadisticas', path: '/Estadisticas', component: EstadisticasView },
       { name: 'Ubicaciones', path: '/Ubicaciones', component: UbicacionComponent }
     ]
   },
